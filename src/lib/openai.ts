@@ -170,7 +170,7 @@ Por favor, formate a resposta em JSON com a seguinte estrutura:
           content: prompt
         }
       ],
-      model: "o3",
+      model: "o3-mini",
       response_format: { type: "json_object" }
     });
 
