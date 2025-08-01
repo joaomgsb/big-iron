@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Biofitness</string>
-    <string name="title_activity_main">Biofitness</string>
-    <string name="package_name">com.biofitness.app</string>
-    <string name="custom_url_scheme">com.biofitness.app</string>
+    <string name="app_name">Big Iron</string>
+    <string name="title_activity_main">Big Iron</string>
+    <string name="package_name">com.bigiron.app</string>
+    <string name="custom_url_scheme">com.bigiron.app</string>
 </resources>
