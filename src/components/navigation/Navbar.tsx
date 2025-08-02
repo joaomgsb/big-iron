@@ -11,147 +11,70 @@ const Navbar: React.FC = () => {
   const { profile } = useProfile();
   const adminDropdownRef = useRef<HTMLDivElement>(null);
 
-  // CSS for tablet 2304x1440 resolution and MacBook M1 specific fixes
-  const tabletHighResCSS = `
+  // CSS otimizado para MacBook M1 e outros dispositivos
+  const responsiveCSS = `
+    /* MacBook M1 e dispositivos similares - melhor distribuição */
+    @media (min-width: 1440px) and (max-width: 1728px) {
+      .navbar-container {
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+      }
+      .navbar-content {
+        gap: 1rem !important;
+      }
+      .nav-links {
+        gap: 0.25rem !important;
+      }
+      .nav-link {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+        font-size: 0.875rem !important;
+      }
+    }
+    
+    /* MacBook M1 Pro/Max e telas maiores */
+    @media (min-width: 1728px) and (max-width: 2560px) {
+      .navbar-container {
+        padding-left: 1.5rem !important;
+        padding-right: 1.5rem !important;
+      }
+      .navbar-content {
+        gap: 2rem !important;
+      }
+      .nav-links {
+        gap: 0.75rem !important;
+      }
+      .nav-link {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+        font-size: 0.9rem !important;
+      }
+    }
+    
+    /* Telas muito grandes */
+    @media (min-width: 2560px) {
+      .navbar-container {
+        padding-left: 2rem !important;
+        padding-right: 2rem !important;
+      }
+      .navbar-content {
+        gap: 3rem !important;
+      }
+      .nav-links {
+        gap: 1rem !important;
+      }
+      .nav-link {
+        padding-left: 1.25rem !important;
+        padding-right: 1.25rem !important;
+        font-size: 1rem !important;
+      }
+    }
+    
+    /* Melhorias para tablet de alta resolução */
     @media (min-width: 2300px) and (max-width: 2310px) and (min-height: 1435px) and (max-height: 1445px) {
       .hide-on-tablet-highres { display: none !important; }
       .show-on-tablet-highres { display: flex !important; }
       .mobile-menu-tablet-highres { display: block !important; }
-    }
-    
-    /* MacBook M1 specific fixes */
-    @media (min-width: 1440px) and (max-width: 1512px) and (min-height: 900px) and (max-height: 982px) {
-      .macbook-m1-navbar {
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
-      }
-      .macbook-m1-navbar .container {
-        max-width: 100% !important;
-        padding-left: 0.5rem !important;
-        padding-right: 0.5rem !important;
-      }
-      .macbook-m1-navbar .nav-links {
-        gap: 0.25rem !important;
-      }
-      .macbook-m1-navbar .nav-link {
-        padding-left: 0.75rem !important;
-        padding-right: 0.75rem !important;
-        font-size: 0.875rem !important;
-      }
-    }
-    
-    /* MacBook M1 Pro/Max specific fixes */
-    @media (min-width: 1512px) and (max-width: 1728px) and (min-height: 982px) and (max-height: 1117px) {
-      .macbook-m1-navbar {
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
-      }
-      .macbook-m1-navbar .container {
-        max-width: 100% !important;
-        padding-left: 0.5rem !important;
-        padding-right: 0.5rem !important;
-      }
-      .macbook-m1-navbar .nav-links {
-        gap: 0.25rem !important;
-      }
-      .macbook-m1-navbar .nav-link {
-        padding-left: 0.75rem !important;
-        padding-right: 0.75rem !important;
-        font-size: 0.875rem !important;
-      }
-    }
-    
-    /* MacBook M1 Pro 14" (2560x1600) specific fixes */
-    @media (min-width: 2560px) and (max-width: 2560px) and (min-height: 1600px) and (max-height: 1600px) {
-      .macbook-m1-navbar {
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
-      }
-      .macbook-m1-navbar .container {
-        max-width: 100% !important;
-        padding-left: 0.5rem !important;
-        padding-right: 0.5rem !important;
-      }
-      .macbook-m1-navbar .nav-links {
-        gap: 0.25rem !important;
-      }
-      .macbook-m1-navbar .nav-link {
-        padding-left: 0.75rem !important;
-        padding-right: 0.75rem !important;
-        font-size: 0.875rem !important;
-      }
-    }
-    
-    /* MacBook M1 Air 13" (2560x1600) specific fixes */
-    @media (min-width: 2560px) and (max-width: 2560px) and (min-height: 1600px) and (max-height: 1600px) and (-webkit-device-pixel-ratio: 2) {
-      .macbook-m1-navbar {
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
-      }
-      .macbook-m1-navbar .container {
-        max-width: 100% !important;
-        padding-left: 0.5rem !important;
-        padding-right: 0.5rem !important;
-      }
-      .macbook-m1-navbar .nav-links {
-        gap: 0.25rem !important;
-      }
-      .macbook-m1-navbar .nav-link {
-        padding-left: 0.75rem !important;
-        padding-right: 0.75rem !important;
-        font-size: 0.875rem !important;
-      }
-    }
-    
-    /* MacBook M1 general fixes - covers all M1 variants */
-    @media (min-width: 1440px) and (max-width: 2560px) and (min-height: 900px) and (max-height: 1600px) and (-webkit-device-pixel-ratio: 2) {
-      .macbook-m1-navbar .container {
-        max-width: 100% !important;
-        padding-left: 0.75rem !important;
-        padding-right: 0.75rem !important;
-      }
-      .macbook-m1-navbar .nav-links {
-        gap: 0.5rem !important;
-      }
-      .macbook-m1-navbar .nav-link {
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
-        font-size: 0.9rem !important;
-      }
-    }
-    
-    /* MacBook M1 specific spacing fix - ensures proper spacing between logo and nav */
-    @media (min-width: 1440px) and (max-width: 2560px) and (min-height: 900px) and (max-height: 1600px) {
-      .macbook-m1-navbar .macbook-m1-flex-container {
-        gap: 2rem !important;
-      }
-      .macbook-m1-navbar .nav-links {
-        margin-left: auto !important;
-        margin-right: auto !important;
-      }
-      .macbook-m1-navbar .nav-link:first-child {
-        margin-left: 1rem !important;
-      }
-    }
-    
-    /* MacBook M1 Retina Display specific fixes */
-    @media (-webkit-device-pixel-ratio: 2) and (min-width: 1440px) and (max-width: 2560px) {
-      .macbook-m1-navbar .container {
-        max-width: 100% !important;
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
-      }
-      .macbook-m1-navbar .nav-links {
-        gap: 0.75rem !important;
-      }
-      .macbook-m1-navbar .nav-link {
-        padding-left: 1.25rem !important;
-        padding-right: 1.25rem !important;
-        font-size: 0.9rem !important;
-      }
-      .macbook-m1-navbar .nav-link:first-child {
-        margin-left: 1.5rem !important;
-      }
     }
   `;
 
@@ -191,14 +114,14 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: tabletHighResCSS }} />
+      <style dangerouslySetInnerHTML={{ __html: responsiveCSS }} />
       <header 
-        className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md py-3 macbook-m1-navbar"
+        className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md py-3"
       >
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center macbook-m1-flex-container">
+        <div className="container mx-auto px-4 navbar-container">
+          <div className="flex justify-between items-center navbar-content">
             {/* Logo */}
-            <Link to="/" className="flex items-center">
+            <Link to="/" className="flex items-center flex-shrink-0">
               <div className="flex items-center gap-2">
                 <img 
                   src="/images/bigiron.jpg"
@@ -218,7 +141,7 @@ const Navbar: React.FC = () => {
                   key={link.path}
                   to={link.path}
                   className={({ isActive }) =>
-                    `px-5 py-3 rounded-md transition-colors font-medium text-lg nav-link ${
+                    `px-3 py-2.5 rounded-md transition-colors font-medium text-lg nav-link ${
                       isActive 
                         ? 'text-primary-600 bg-primary-50' 
                         : 'text-neutral-600 hover:text-primary-500 hover:bg-neutral-100'
@@ -277,7 +200,7 @@ const Navbar: React.FC = () => {
             </nav>
 
             {/* User Profile & Mobile/Tablet Menu Button */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4 flex-shrink-0">
               <Link 
                 to="/perfil" 
                 className="flex items-center justify-center w-12 h-12 rounded-full bg-neutral-100 text-neutral-600 hover:bg-primary-100 hover:text-primary-500 transition-colors"
