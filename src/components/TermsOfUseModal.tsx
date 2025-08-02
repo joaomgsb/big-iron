@@ -85,7 +85,7 @@ const TermsOfUseModal: React.FC<TermsOfUseModalProps> = ({ isOpen, onClose, onAc
             </h3>
             <div className="bg-gray-50 rounded-lg p-4 text-gray-700">
               <p><strong>Nome:</strong> Big Iron</p>
-              <p><strong>URL:</strong> https://biofittnes.netlify.app</p>
+              <p><strong>URL:</strong> https://bigironct.netlify.app</p>
               <p><strong>Finalidade:</strong> Plataforma de receitas fitness e orientações nutricionais</p>
               <p><strong>Desenvolvedor:</strong> Inova.Js</p>
             </div>
